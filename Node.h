@@ -1,21 +1,20 @@
 #ifndef NODE_H
 #define NODE_H
-#
 
 struct Node
 {
     int year;
     double globalTemperature;
-    double methaneLevel;
-    double carbonDioxideLevel;
+    double CH4Level;
+    double CO2Level;
     Node *next;
 
-    Node(int yr, double temp, double ch4, double co2)
+    Node(int yr, double temp, double CH4, double CO2)
     {
         year = yr;
         globalTemperature = temp;
-        methaneLevel = ch4;
-        carbonDioxideLevel = co2;
+        CH4Level = CH4;
+        CO2Level = CO2;
         next = nullptr;
     }
 };

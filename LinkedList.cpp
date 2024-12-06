@@ -14,15 +14,15 @@ LinkedList::~LinkedList()
 {
     while (head)
     {
-        Node *temp = head;
+        Node *tempNode = head;
         head = head->next;
-        delete temp;
+        delete tempNode;
     }
 }
 
-void LinkedList::addNode(int yr, double temp, double ch4, double co2)
+void LinkedList::addNode(int yr, double temp, double CH4, double CO2)
 {
-    Node *newNode = new Node(yr, temp, ch4, co2);
+    Node *newNode = new Node(yr, temp, CH4, CO2);
     if (!head)
     {
         head = newNode;
@@ -52,7 +52,7 @@ Node* LinkedList::findNodeByYear(int year)
     return nullptr;
 }
 
-Node *LinkedList::getHead()
+Node* LinkedList::getHead()
 {
     return head;
 }
@@ -62,8 +62,18 @@ void LinkedList::display()
     Node *curr = head;
     while (curr)
     {
-        std::cout << "Year: " << curr->year << ", Global Temp: " << curr->globalTemperature << ", CH4 Level: " << curr->methaneLevel << ", CO2 Level: " << curr->carbonDioxideLevel << std::endl;
+        std::cout << "Year: " << curr->year << ", Global Temp: " << curr->globalTemperature << ", CH4 Level: " << curr->CH4Level << ", CO2 Level: " << curr->CO2Level << std::endl;
         curr = curr->next;
+    }
+}
+
+void LinkedList::clear()
+{
+    while (head)
+    {
+        Node *tempNode = head;
+        head = head->next;
+        delete tempNode;
     }
 }
 
@@ -73,39 +83,26 @@ LinkedList& LinkedList::operator=(const LinkedList& other)
     {
         return *this;
     }
-
-    // Clear existing nodes in the current list
-    while (head)
-    {
-        Node* temp = head;
-        head = head->next;
-        delete temp;
-    }
-
-    // Copy nodes from the other list
     if (!other.head)
     {
         head = nullptr;
         return *this;
     }
 
-    // Copy the first node explicitly to initialize the head
-    head = new Node(other.head->year, other.head->globalTemperature, 
-                    other.head->carbonDioxideLevel, other.head->methaneLevel);
+    clear();
 
-    Node* current = head;      // Pointer to traverse the current list
-    Node* otherCurrent = other.head->next; // Pointer to traverse the other list
+    // Copy the first node to initialize the head
+    head = new Node(other.head->year, other.head->globalTemperature, other.head->CO2Level, other.head->CH4Level);
 
+    Node* current = head;
+    Node* otherCurrent = other.head->next;
     while (otherCurrent)
     {
-        // Create a new node and link it
-        current->next = new Node(otherCurrent->year, otherCurrent->globalTemperature, 
-                                 otherCurrent->carbonDioxideLevel, otherCurrent->methaneLevel);
+        current->next = new Node(otherCurrent->year, otherCurrent->globalTemperature, otherCurrent->CO2Level, otherCurrent->CH4Level);
 
-        current = current->next;        // Move to the next node in the current list
-        otherCurrent = otherCurrent->next; // Move to the next node in the other list
+        current = current->next;
+        otherCurrent = otherCurrent->next;
     }
-
     return *this;
 }
 

@@ -12,6 +12,7 @@ public:
     Node* findNodeByYear(int year);
     Node* getHead();
     void display();
+    void clear();
     LinkedList& operator=(const LinkedList& other);
 
 private:

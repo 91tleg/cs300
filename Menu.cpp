@@ -23,21 +23,30 @@ int main()
         if (choice == 1)
         {
             list = analysis.loadData("temperatureData.txt", "gasData.txt");
-            list.display();
+            analysis.calculateCorrelation(list);
+            std::cout << "Correlation coefficient between methane and temperature: " << analysis.getCH4Correlation() << std::endl;
+            std::cout << "Correlation coefficient between carbon dioxide and temperature: " << analysis.getCO2Correlation() << std::endl;
+            // visulization
+    
         }
         else if (choice == 2)
         {
             std::string analysisName;
             std::cout << "Enter a name to save the analysis as: ";
             std::cin >> analysisName;
-            analysis.saveAnalysis(analysisName);
+            analysis.saveAnalysis(analysisName, list);
         }
         else if (choice == 3)
         {
             std::string fileName;
             std::cout << "Enter the name of the analysis file to load: ";
             std::cin >> fileName;
-            // analysis.loadData(fileName);
+            std::ifstream corrStream(fileName);
+            double CH4Correlation, CO2Correlation;
+            corrStream >> CH4Correlation >> CO2Correlation;
+            std::cout << "Correlation coefficient between methane and temperature: " << CH4Correlation << std::endl;
+            std::cout << "Correlation coefficient between carbon dioxide and temperature: " << CO2Correlation << std::endl;
+            // visualization
         }
         else if (choice == 4)
         {
