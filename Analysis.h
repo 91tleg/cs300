@@ -20,5 +20,5 @@ private:
     double CO2Correlation;
 };
 
-#include "Analysis.cpp"
+
 #endif

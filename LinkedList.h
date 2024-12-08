@@ -19,5 +19,4 @@ private:
     Node* head;
 };
 
-#include "LinkedList.cpp"
 #endif

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "Analysis.h"
 #include "LinkedList.h"
 #include "Visualization.h"
@@ -8,6 +9,7 @@ int main()
 {
     LinkedList list;
     Analysis analysis;
+    Visualization viz;
     int choice = 0;
 
     while (choice != 4)
@@ -22,12 +24,25 @@ int main()
 
         if (choice == 1)
         {
-            list = analysis.loadData("temperatureData.txt", "gasData.txt");
+            std::string path1 = std::filesystem::current_path().string() + "/temperatureData.txt";
+            std::string path2 = std::filesystem::current_path().string() + "/gasData.txt";
+
+            //std::string path1 = "./temperatureData.txt";
+            //std::string path2 = "./gasData.txt";
+
+            std::cout << path1 << std::endl;
+            std::cout << path2 << std::endl;
+            list = analysis.loadData(path1, path2);
+
+            //list = analysis.loadData("/Users/ella/Documents/cs300-main/temperatureData.txt", "/Users/ella/Documents/cs300-main/gasData.txt");
+
             analysis.calculateCorrelation(list);
             std::cout << "Correlation coefficient between methane and temperature: " << analysis.getCH4Correlation() << std::endl;
             std::cout << "Correlation coefficient between carbon dioxide and temperature: " << analysis.getCO2Correlation() << std::endl;
             // visulization
-    
+            // In choice 1 after calculating correlation:
+            viz.createTimeSeriesPlot(list);
+            viz.createScatterPlot(list, analysis.getCH4Correlation(), analysis.getCO2Correlation());
         }
         else if (choice == 2)
         {
