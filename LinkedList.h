@@ -13,6 +13,7 @@ public:
     Node* getHead();
     void display();
     void clear();
+    bool isEmpty();
     LinkedList& operator=(const LinkedList& other);
 
 private:

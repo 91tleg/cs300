@@ -21,12 +21,12 @@ LinkedList Analysis::loadData(const std::string& tempFile, const std::string& ga
 
     if (!tempStream.is_open()) 
     {
-        std::cerr << "Error opening " << tempFile << std::endl;
+        std::cerr << "Error: Failed to open " << tempFile << std::endl;
         return list;
     }
     if (!gasStream.is_open()) 
     {
-        std::cerr << "Error opening " << gasFile << std::endl;
+        std::cerr << "Error: Failed to open " << gasFile << std::endl;
         return list;
     }
 
@@ -54,12 +54,33 @@ LinkedList Analysis::loadData(const std::string& tempFile, const std::string& ga
     return list;
 }
 
+LinkedList Analysis::loadData(const std::string &fileName)
+{
+    LinkedList list;
+    std::ifstream fileStream(fileName);
+
+    if (!fileStream.is_open()) 
+    {
+        std::cerr << "Error: Failed to open " << fileName << std::endl;
+        return list;
+    }
+
+    int year;
+    double temperature, CH4Level, CO2Level;
+    while (fileStream >> year >> temperature >> CH4Level >> CO2Level)
+    {
+        list.addNode(year, temperature, CH4Level, CO2Level);
+    }
+    fileStream.close();
+    return list;
+}
+
 void Analysis::saveData(const std::string &fileName, LinkedList &list)
 {
     std::ofstream outFile(fileName);
     if (!outFile)
     {
-        std::cerr << "Error..." << std::endl;
+        std::cerr << "Error: Failed to save " << fileName << std::endl;
         return;
     }
     Node* curr = list.getHead();
@@ -69,7 +90,6 @@ void Analysis::saveData(const std::string &fileName, LinkedList &list)
         curr = curr->next;
     }
     outFile.close();
-    std::cout << "Data saved to " << fileName << std::endl;
 }
 
 void Analysis::saveAnalysis(const std::string &fileName, LinkedList &list)
@@ -77,7 +97,7 @@ void Analysis::saveAnalysis(const std::string &fileName, LinkedList &list)
         std::ofstream outFile(fileName);
     if (!outFile)
     {
-        std::cerr << "Error: Failed to open file \"" << fileName << "\" for writing." << std::endl;
+        std::cerr << "Error: Failed to open " << fileName << std::endl;
         return;
     }
 
@@ -85,13 +105,13 @@ void Analysis::saveAnalysis(const std::string &fileName, LinkedList &list)
 
     if (outFile.fail())
     {
-        std::cerr << "Error: Failed to write to file \"" << fileName << "\"." << std::endl;
+        std::cerr << "Error: Failed to save " << fileName <<  std::endl;
         outFile.close();
         return;
     }
 
     outFile.close();
-    std::cout << "Correlations saved to \"" << fileName << "\" successfully." << std::endl;
+    std::cout << "Correlations saved to " << fileName << std::endl;
 }
 
 // Calculate the correlation coefficient for each greenhouse gas in the dataset using Pearson correlation coefficient

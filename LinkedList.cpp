@@ -77,6 +77,11 @@ void LinkedList::clear()
     }
 }
 
+bool LinkedList::isEmpty()
+{
+    return head == nullptr;
+}
+
 LinkedList& LinkedList::operator=(const LinkedList& other)
 {
     if (this == &other)

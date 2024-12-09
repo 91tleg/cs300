@@ -8,6 +8,7 @@ class Analysis
 public:
     Analysis();
     LinkedList loadData(const std::string &tempFile, const std::string &gasFile);
+    LinkedList loadData(const std::string &fileName);
     void saveData(const std::string &fileName, LinkedList &list);
     void saveAnalysis(const std::string &fileName, LinkedList &list);
     void calculateCorrelation(LinkedList &list);
@@ -15,10 +16,8 @@ public:
     double getCO2Correlation();
 
 private:
-    LinkedList list;
     double CH4Correlation;
     double CO2Correlation;
 };
-
 
 #endif
