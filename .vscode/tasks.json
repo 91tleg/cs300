@@ -1,0 +1,32 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build SFML Project",
+            "type": "shell",
+            "command": "g++",
+            "args": [
+                "-std=c++17",              // C++17 
+                "*.cpp",                  //  .cpp
+                "-o",                     
+                "Visual_Data",            
+                "-lsfml-graphics",        // SFML graphic library
+                "-lsfml-window",          // SFML window manage library
+                "-lsfml-system",          // SFML system library
+                "-L/usr/local/lib",     
+                "-I/usr/local/include"  
+            ],
+            "group": 
+            {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": ["$gcc"],
+            "options": 
+            {
+                "cwd": "${workspaceFolder}"
+            }
+        }
+    ]
+  }
+  s
